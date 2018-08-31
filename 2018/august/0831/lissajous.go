@@ -1,17 +1,17 @@
 package main
 
 import (
-	"image/color"
-	"math/rand"
-	"time"
-	"os"
-	"net/http"
-	"io"
-	"image/gif"
-	"image"
-	"math"
-	"log"
 	"fmt"
+	"image"
+	"image/color"
+	"image/gif"
+	"io"
+	"log"
+	"math"
+	"math/rand"
+	"net/http"
+	"os"
+	"time"
 )
 
 var palette = []color.Color{color.White, color.RGBA{0xff, 0x00, 0x00, 0x00}, color.RGBA{0x00, 0xff, 0x00, 0x00}, color.RGBA{0x00, 0x00, 0xff, 0x00}}
@@ -50,7 +50,7 @@ func lissajous(out io.Writer) {
 		rect := image.Rect(0, 0, 2*size+1, 2*size+1)
 		img := image.NewPaletted(rect, palette)
 		for t := 0.0; t < cycles*2*math.Pi; t += res {
-			var x1 = uint8(rand.Uint32() % 3)+1
+			var x1 = uint8(rand.Uint32()%3) + 1
 			fmt.Println(x1)
 			x := math.Sin(t)
 			y := math.Cos(t*freq + phase)
