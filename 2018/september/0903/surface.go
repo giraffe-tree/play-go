@@ -22,8 +22,30 @@ func main() {
 		"width='%d' height='%d'>", width, height)
 	for i := 0; i < cells; i++ {
 		for j := 0; j < cells; j++ {
-
+			ax, ay := corner(i+1, j)
+			bx, by := corner(i, j)
+			cx, cy := corner(i, j+1)
+			dx, dy := corner(i+1, j+1)
+			fmt.Println("<polygon points='%g,%g %g,%g %g,%g %g,%g'/>\n", ax, ay, bx, by, cx, cy, dx, dy)
 		}
 	}
+	fmt.Println("</svg>")
+}
 
+func corner(i, j int) (float64, float64) {
+	// 求出网格单元 (i,j) 的顶点坐标 (x,y)
+	x := xyrange * (float64(i)/cells - 0.5)
+	y := xyrange * (float64(j)/cells - 0.5)
+
+	// 计算曲面高度
+	z := fun1(x, y)
+
+	// 将 (x,y,z) 等角投射到二维 svg 绘图平面上, 坐标为 (sx,sy)
+	sx := width/2 + (x-y)*cos30*xyscale
+	sy := height/2 + (x+y)*sin30*xyscale - z*zscale
+	return sx, sy
+}
+func fun1(x, y float64) float64 {
+	r := math.Hypot(x, y)
+	return math.Sin(r) / r
 }
