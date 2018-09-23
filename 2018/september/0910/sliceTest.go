@@ -20,10 +20,12 @@ func main() {
 	m2 := append(m, "ds")
 	fmt.Println(m2)
 	fmt.Println(m)
-	x1 :=copy(months[0:],months[3:])
+	x1 := copy(months[0:], months[3:])
 	fmt.Println(x1)
 	fmt.Println(months)
+	test()
 
-
+}
+func test() {
 
 }
