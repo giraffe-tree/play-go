@@ -24,10 +24,12 @@ func main() {
 	test3(apple)
 	fmt.Println(apple.name, apple.size) // chen 333
 
-	fmt.Printf("原始 apple 地址:%p\n", &apple)
+	fmt.Printf("\n原始 apple 地址:%p\n", &apple)
 	apple = &Apple{"cc", 1}
 	test4(apple)
-	fmt.Println(apple.name, apple.size) // chen 10
+	fmt.Println(apple.name, apple.size) // cc 1
+	fmt.Printf("原始 apple 地址:%p\n", &apple)
+
 	ints := make(map[string]int)
 	fmt.Println(ints)
 }
@@ -55,9 +57,11 @@ func test3(apple *Apple) {
 }
 
 func test4(apple *Apple) {
-	fmt.Printf("test4 apple 地址:%p\n", &apple)
-	apple = &Apple{"chen", 444}
+	fmt.Printf("test4 方法中 apple 值:%p\n", apple)
 	fmt.Printf(" apple 地址:%p\n", &apple)
+	apple = &Apple{"xxx", 444}
+	fmt.Printf(" apple 地址:%p\n", &apple)
+	fmt.Printf(" apple 值:%p\n", apple)
 }
 
 type Apple struct {
