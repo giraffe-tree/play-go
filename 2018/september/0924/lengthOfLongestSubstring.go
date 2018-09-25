@@ -24,43 +24,76 @@ https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/
      请注意，答案必须是一个子串，"pwke" 是一个子序列 而不是子串。
 */
 func main() {
-	fmt.Println(lengthOfLongestSubstring2("pwwkew"))
+	fmt.Println(lengthOfLongestSubstring3("bbbb"))
+	fmt.Println(lengthOfLongestSubstring3("axasd"))
+	fmt.Println(lengthOfLongestSubstring3("bbbb"))
 }
 
-func lengthOfLongestSubstring2(s string) int {
-	var length = len(s)
-	start, end := 0, 0
-	var maxCount = 0
-	var left = 0
-	hashMap := make(map[uint8]int)
-	for index := 0; index < length; index++ {
+/**
+version 3.0
+	用时 8 ms -> 4 ms
+	数组版本
+*/
+func lengthOfLongestSubstring3(s string) int {
+	var max = 0
+	var end = 0
+	array := [256]int{0}
+	for start := 0; start < len(s); start++ {
 		// uint8
 		char := s[start]
-		start++
-		value, ok := hashMap[char]
-		if !ok {
+		value := array[char]
+		array[char] = start + 1
+		if value == 0 || value-1 < end {
 			// 如果不存在, 加入 map 中
-			hashMap[char] = index
 
-			if index-left+1 > maxCount {
-				maxCount = index - left + 1
+			if start-end+1 > max {
+				max = start - end + 1
 			}
 			continue
 		}
 		//如果存在, 拿到 value 即重复的 序列号
-		if end >= left {
-			left = end + 1
+		end = value
+	}
+	return max
+}
+
+/**
+ version2.0
+	使用 map , 不用 delete 元素
+	用时 12ms
+*/
+func lengthOfLongestSubstring2(s string) int {
+	var length = len(s)
+	var maxCount = 0
+	var end = 0
+	hashMap := make(map[uint8]int)
+	for start := 0; start < length; start++ {
+		// uint8
+		char := s[start]
+
+		value, ok := hashMap[char]
+		if !ok || value < end {
+			// 如果不存在, 加入 map 中
+			hashMap[char] = start
+			if start-end+1 > maxCount {
+				maxCount = start - end + 1
+			}
+			continue
+		}
+		//如果存在, 拿到 value 即重复的 序列号
+		if value >= end {
+			end = value + 1
 		}
 
-		end = value + 1
-		hashMap[char] = index
+		hashMap[char] = start
 	}
-	fmt.Printf("start:%d end:%d\n", start, end)
+	//fmt.Printf("start:%d end:%d\n", start, end)
 	return maxCount
 }
 
 /**
 简单思路, 设定一个 start , 一个end 指针, 指向最长的子串
+最初版本
 */
 func lengthOfLongestSubstring(s string) int {
 	var length = len(s)
