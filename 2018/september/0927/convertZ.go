@@ -31,6 +31,40 @@ func main() {
 
 }
 
+/**
+整理规律, 然后转化
+ */
 func convert(s string, numRows int) string {
+	// 行数为1, 直接返回
+	if numRows <2{
+		return s
+	}
+
+
 
 }
+
+/**
+numrows 总行数
+row 当前行数
+ */
+func getCount(len, numRows, row int) int {
+	//
+	count := 0
+	if row > numRows{
+		return 0
+	}
+
+}
+/**
+暴力法
+生成 numRows 个string
+ */
+func convert2(s string, numRows int) string {
+	// 行数为1, 直接返回
+	if numRows <2{
+		return s
+	}
+
+}
+
