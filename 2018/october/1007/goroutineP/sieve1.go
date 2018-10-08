@@ -23,7 +23,12 @@ func filter(in, out chan int, prime int) {
 	}
 }
 
-// The prime sieve: Daisy-chain filter processes together.
+/**
+The prime sieve: Daisy-chain filter processes together.
+还没有想通?
+ch=ch1 这步, ch 原有引用会不会被 gc 掉
+
+ */
 func main() {
 	ch := make(chan int) // Create a new channel.
 	go generate(ch)      // Start generate() as a goroutine.
@@ -33,5 +38,6 @@ func main() {
 		ch1 := make(chan int)
 		go filter(ch, ch1, prime)
 		ch = ch1
+
 	}
 }
